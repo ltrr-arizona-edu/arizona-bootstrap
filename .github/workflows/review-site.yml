@@ -9,7 +9,8 @@ on:
     branches:
       - main
       - 2.x
-
+env:
+  AZ_SITE_HOST: ${{ vars.AZ_SITE_HOST }}
 jobs:
   lint-code:
     name: Check code for linting errors
@@ -23,7 +24,6 @@ jobs:
           imageprefix=${{ vars.AZ_DOCKER_REGISTRY }}"/${GITHUB_REPOSITORY}/"
           imagename='az-nodejs-ephemeral'
           imagestem="${imageprefix}${imagename}:"
-          echo "AZ_DOCKER_REGISTRY=${registry}" >> ${GITHUB_ENV}
           echo "AZ_OLD_HASH=${oldhash}" >> ${GITHUB_ENV}
           echo "AZ_IMAGE_STEM=${imagestem}" >> ${GITHUB_ENV}
           echo "AZ_EPHEMERAL_IMAGE=${imagestem}${oldhash}" >> ${GITHUB_ENV}
@@ -83,7 +83,6 @@ jobs:
           imageprefix=${{ vars.AZ_DOCKER_REGISTRY }}"/${GITHUB_REPOSITORY}/"
           imagename='az-nodejs-ephemeral'
           imagestem="${imageprefix}${imagename}:"
-          echo "AZ_DOCKER_REGISTRY=${registry}" >> ${GITHUB_ENV}
           echo "AZ_OLD_HASH=${oldhash}" >> ${GITHUB_ENV}
           echo "AZ_IMAGE_STEM=${imagestem}" >> ${GITHUB_ENV}
           echo "AZ_EPHEMERAL_IMAGE=${imagestem}${oldhash}" >> ${GITHUB_ENV}
@@ -118,7 +117,6 @@ jobs:
       - name: Build variables
         run: |
           echo "AZ_REVIEW_BASEURL=/arizona-bootstrap/${AZ_TRIMMED_REF}" >> ${GITHUB_ENV}
-          echo "AZ_SITE_HOST=https://review.ltrr.arizona.edu" >> ${GITHUB_ENV}
       - name: Build review site artifact
         run: |
           sudo touch config.yml
