@@ -20,8 +20,7 @@ jobs:
       - name: Set variables for Docker images
         run: |
           oldhash=${{ hashFiles('Dockerfile', 'package.json', 'package-lock.json', 'scripts/*') }}
-          registry='ghcr.io'
-          imageprefix="${registry}/${GITHUB_REPOSITORY}/"
+          imageprefix=${{ vars.AZ_DOCKER_REGISTRY }}"/${GITHUB_REPOSITORY}/"
           imagename='az-nodejs-ephemeral'
           imagestem="${imageprefix}${imagename}:"
           echo "AZ_DOCKER_REGISTRY=${registry}" >> ${GITHUB_ENV}
@@ -35,7 +34,7 @@ jobs:
       - name: Docker authentication
         uses: docker/login-action@v3
         with:
-          registry: "$AZ_DOCKER_REGISTRY"
+          registry: ${{ vars.AZ_DOCKER_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Search for Docker image
@@ -81,8 +80,7 @@ jobs:
       - name: Set variables for Docker images
         run: |
           oldhash=${{ hashFiles('Dockerfile', 'package.json', 'package-lock.json', 'scripts/*') }}
-          registry='ghcr.io'
-          imageprefix="${registry}/${GITHUB_REPOSITORY}/"
+          imageprefix=${{ vars.AZ_DOCKER_REGISTRY }}"/${GITHUB_REPOSITORY}/"
           imagename='az-nodejs-ephemeral'
           imagestem="${imageprefix}${imagename}:"
           echo "AZ_DOCKER_REGISTRY=${registry}" >> ${GITHUB_ENV}
@@ -96,7 +94,7 @@ jobs:
       - name: Docker authentication
         uses: docker/login-action@v3
         with:
-          registry: "$AZ_DOCKER_REGISTRY"
+          registry: ${{ vars.AZ_DOCKER_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Search for Docker image
@@ -120,7 +118,7 @@ jobs:
       - name: Build variables
         run: |
           echo "AZ_REVIEW_BASEURL=/arizona-bootstrap/${AZ_TRIMMED_REF}" >> ${GITHUB_ENV}
-          echo "AZ_SITE_HOST=https://review.digital.arizona.edu" >> ${GITHUB_ENV}
+          echo "AZ_SITE_HOST=https://review.ltrr.arizona.edu" >> ${GITHUB_ENV}
       - name: Build review site artifact
         run: |
           sudo touch config.yml
