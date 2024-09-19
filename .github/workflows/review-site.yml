@@ -9,35 +9,34 @@ on:
     branches:
       - main
       - 2.x
-
+env:
+  AZ_SITE_HOST: ${{ vars.AZ_SITE_HOST }}
 jobs:
   lint-code:
     name: Check code for linting errors
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout repository to workspace
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Set variables for Docker images
         run: |
           oldhash=${{ hashFiles('Dockerfile', 'package.json', 'package-lock.json', 'scripts/*') }}
-          registry='ghcr.io'
-          imageprefix="${registry}/${GITHUB_REPOSITORY}/"
+          imageprefix=${{ vars.AZ_DOCKER_REGISTRY }}"/${GITHUB_REPOSITORY}/"
           imagename='az-nodejs-ephemeral'
           imagestem="${imageprefix}${imagename}:"
-          echo "AZ_DOCKER_REGISTRY=${registry}" >> ${GITHUB_ENV}
           echo "AZ_OLD_HASH=${oldhash}" >> ${GITHUB_ENV}
           echo "AZ_IMAGE_STEM=${imagestem}" >> ${GITHUB_ENV}
           echo "AZ_EPHEMERAL_IMAGE=${imagestem}${oldhash}" >> ${GITHUB_ENV}
           echo "AZ_BOOTSTRAP_SOURCE_DIR=/arizona-bootstrap-source" >> ${GITHUB_ENV}
           echo "AZ_BOOTSTRAP_FROZEN_DIR=/azbuild/arizona-bootstrap" >> ${GITHUB_ENV}
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Login to GitHub Container Registry
+        uses: docker/setup-buildx-action@v2
+      - name: Docker authentication
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
+          registry: ${{ vars.AZ_DOCKER_REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.AZ_DOCKER_REGISTRY_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Search for Docker image
         id: dockerpull
         continue-on-error: true
@@ -49,10 +48,10 @@ jobs:
           workingtitle=$(docker build -q . )
           tempname="old${AZ_OLD_HASH}"
           docker run --name "$tempname" "$workingtitle" true
-          docker cp -a "${tempname}:${{ env.AZ_BOOTSTRAP_FROZEN_DIR }}/." .
+          docker cp -a "${tempname}:${AZ_BOOTSTRAP_FROZEN_DIR}/." .
           docker rm "$tempname"
           lockhash=${{ hashFiles('Dockerfile', 'package.json', 'package-lock.json', 'scripts/*') }}
-          ephemeral="${{ env.AZ_IMAGE_STEM }}${lockhash}"
+          ephemeral="${AZ_IMAGE_STEM}${lockhash}"
           docker tag "$workingtitle" "$ephemeral"
           docker push "$ephemeral"
           echo "AZ_EPHEMERAL_IMAGE=${ephemeral}" >> ${GITHUB_ENV}
@@ -61,16 +60,16 @@ jobs:
           sudo touch config.yml
           sudo find . -path "./.git" -prune -o -exec chown 1000:1000 {} \;
           sudo chown 1000:1000 .
-          docker run --rm -v $(pwd):"${{ env.AZ_BOOTSTRAP_SOURCE_DIR }}" "${{ env.AZ_EPHEMERAL_IMAGE }}" lint
+          docker run --rm -v $(pwd):"${AZ_BOOTSTRAP_SOURCE_DIR}" "$AZ_EPHEMERAL_IMAGE" lint
   review-site:
     name: Build & deploy review site
     needs: lint-code
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout repository to workspace
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
-          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 20
       - name: Find the push source branch name
         if: ${{ github.event_name != 'pull_request' }}
@@ -81,21 +80,22 @@ jobs:
       - name: Set variables for Docker images
         run: |
           oldhash=${{ hashFiles('Dockerfile', 'package.json', 'package-lock.json', 'scripts/*') }}
-          registry='ghcr.io'
-          imageprefix="${registry}/${GITHUB_REPOSITORY}/"
+          imageprefix=${{ vars.AZ_DOCKER_REGISTRY }}"/${GITHUB_REPOSITORY}/"
           imagename='az-nodejs-ephemeral'
           imagestem="${imageprefix}${imagename}:"
-          echo "AZ_DOCKER_REGISTRY=${registry}" >> ${GITHUB_ENV}
           echo "AZ_OLD_HASH=${oldhash}" >> ${GITHUB_ENV}
           echo "AZ_IMAGE_STEM=${imagestem}" >> ${GITHUB_ENV}
           echo "AZ_EPHEMERAL_IMAGE=${imagestem}${oldhash}" >> ${GITHUB_ENV}
           echo "AZ_BOOTSTRAP_SOURCE_DIR=/arizona-bootstrap-source" >> ${GITHUB_ENV}
           echo "AZ_BOOTSTRAP_FROZEN_DIR=/azbuild/arizona-bootstrap" >> ${GITHUB_ENV}
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v2
       - name: Docker authentication
-        run: |
-          docker login "$AZ_DOCKER_REGISTRY" -u "$GITHUB_ACTOR" -p ${{ secrets.GITHUB_TOKEN }}
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.AZ_DOCKER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Search for Docker image
         id: dockerpull
         continue-on-error: true
@@ -117,7 +117,6 @@ jobs:
       - name: Build variables
         run: |
           echo "AZ_REVIEW_BASEURL=/arizona-bootstrap/${AZ_TRIMMED_REF}" >> ${GITHUB_ENV}
-          echo "AZ_SITE_HOST=https://review.digital.arizona.edu" >> ${GITHUB_ENV}
       - name: Build review site artifact
         run: |
           sudo touch config.yml
@@ -135,7 +134,7 @@ jobs:
           fi
         shell: sh
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
