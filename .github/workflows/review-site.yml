@@ -11,8 +11,7 @@ on:
       - 2.x
 env:
   AZ_SITE_HOST: ${{ vars.AZ_SITE_HOST }}
-permissions:
-  packages: write
+permissions: write-all
 jobs:
   lint-code:
     name: Check code for linting errors
