@@ -49,7 +49,7 @@ WORKDIR $AZ_BOOTSTRAP_FROZEN_DIR
 RUN mkdir /home/node/.npm \
   && chown node:node /home/node/.npm
 RUN npm config set cache='/home/node/.npm' \
-  && npm install
+  && npm install --foreground-scripts=true --loglevel=verbose
 RUN find node_modules -name '.DS_Store' -exec rm {} \; \ 
   && chown -R node:node "$AZ_BOOTSTRAP_FROZEN_DIR"
 
