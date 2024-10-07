@@ -11,6 +11,7 @@ on:
       - 2.x
 env:
   AZ_SITE_HOST: ${{ vars.AZ_SITE_HOST }}
+  AZ_EPHEMERALIMAGENAME: ${{ vars.AZ_EPHEMERALIMAGENAME }}
 permissions: write-all
 jobs:
   lint-code:
@@ -23,8 +24,7 @@ jobs:
         run: |
           oldhash=${{ hashFiles('Dockerfile', 'package.json', 'package-lock.json', 'scripts/*') }}
           imageprefix=${{ vars.AZ_DOCKER_REGISTRY }}"/${GITHUB_REPOSITORY}/"
-          imagename='az-nodejs-ephemeral'
-          imagestem="${imageprefix}${imagename}:"
+          imagestem="${imageprefix}${AZ_EPHEMERALIMAGENAME}:"
           echo "AZ_OLD_HASH=${oldhash}" >> ${GITHUB_ENV}
           echo "AZ_IMAGE_STEM=${imagestem}" >> ${GITHUB_ENV}
           echo "AZ_EPHEMERAL_IMAGE=${imagestem}${oldhash}" >> ${GITHUB_ENV}
@@ -46,7 +46,8 @@ jobs:
       - name: Conditionally rebuild and save the Docker image
         if: ${{ steps.dockerpull.outcome == 'failure' }}
         run: |
-          workingtitle=$(docker build -q . )
+          workingtitle="${AZ_EPHEMERALIMAGENAME}:working"
+          docker build --no-cache -t "$workingtitle" --build-arg AZ_BOOTSTRAP_FROZEN_DIR .
           tempname="old${AZ_OLD_HASH}"
           docker run --name "$tempname" "$workingtitle" true
           docker cp -a "${tempname}:${AZ_BOOTSTRAP_FROZEN_DIR}/." .
@@ -82,8 +83,7 @@ jobs:
         run: |
           oldhash=${{ hashFiles('Dockerfile', 'package.json', 'package-lock.json', 'scripts/*') }}
           imageprefix=${{ vars.AZ_DOCKER_REGISTRY }}"/${GITHUB_REPOSITORY}/"
-          imagename='az-nodejs-ephemeral'
-          imagestem="${imageprefix}${imagename}:"
+          imagestem="${imageprefix}${AZ_EPHEMERALIMAGENAME}:"
           echo "AZ_OLD_HASH=${oldhash}" >> ${GITHUB_ENV}
           echo "AZ_IMAGE_STEM=${imagestem}" >> ${GITHUB_ENV}
           echo "AZ_EPHEMERAL_IMAGE=${imagestem}${oldhash}" >> ${GITHUB_ENV}
@@ -105,7 +105,8 @@ jobs:
       - name: Conditionally rebuild and save the Docker image
         if: ${{ steps.dockerpull.outcome == 'failure' }}
         run: |
-          workingtitle=$(docker build -q . )
+          workingtitle="${AZ_EPHEMERALIMAGENAME}:working"
+          docker build --no-cache -t "$workingtitle" --build-arg AZ_BOOTSTRAP_FROZEN_DIR .
           tempname="old${AZ_OLD_HASH}"
           docker run --name "$tempname" "$workingtitle" true
           docker cp -a "${tempname}:${AZ_BOOTSTRAP_FROZEN_DIR}/." .
