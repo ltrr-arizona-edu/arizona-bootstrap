@@ -44,7 +44,7 @@ jobs:
       - name: Unconditionally rebuild and save the Docker image
         run: |
           workingtitle="${AZ_EPHEMERALIMAGENAME}:working"
-          docker build --no-cache -t "$workingtitle" --build-arg AZ_BOOTSTRAP_FROZEN_DIR . \
+          docker buildx build --platform=linux/amd64 --no-cache -t "$workingtitle" --build-arg AZ_BOOTSTRAP_FROZEN_DIR . \
           tempname="old${AZ_OLD_HASH}"
           docker run --name "$tempname" "$workingtitle" true
           docker cp -a "${tempname}:${AZ_BOOTSTRAP_FROZEN_DIR}/." .
