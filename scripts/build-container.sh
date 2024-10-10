@@ -91,7 +91,7 @@ if echo "$tagsearch" | grep -q "$oldhash" ; then
 else
   logmessage "Building a new ${AZ_EPHEMERALIMAGENAME} image"
   workingtitle="${AZ_EPHEMERALIMAGENAME}:working"
-  docker build --no-cache -t "$workingtitle" --build-arg AZ_BOOTSTRAP_FROZEN_DIR . \
+  docker buildx build --load  --platform=linux/amd64 --no-cache -t "$workingtitle" --build-arg AZ_BOOTSTRAP_FROZEN_DIR . \
     || errorexit "Failed to build a new ${AZ_EPHEMERALIMAGENAME} Docker image preconfigured with the ${AZ_BOOTSTRAP_FROZEN_DIR} npm directory"
   tempname="old${oldhash}"
   logmessage "Making a throwaway container, named ${tempname}, to extract the updated npm setup"
