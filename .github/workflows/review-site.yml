@@ -12,11 +12,13 @@ on:
 env:
   AZ_SITE_HOST: ${{ vars.AZ_SITE_HOST }}
   AZ_EPHEMERALIMAGENAME: ${{ vars.AZ_EPHEMERALIMAGENAME }}
-permissions: write-all
 jobs:
   lint-code:
     name: Check code for linting errors
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
     steps:
       - name: Checkout repository to workspace
         uses: actions/checkout@v4
@@ -67,6 +69,10 @@ jobs:
     name: Build & deploy review site
     needs: lint-code
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
     steps:
       - name: Checkout repository to workspace
         uses: actions/checkout@v4
