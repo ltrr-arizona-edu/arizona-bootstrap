@@ -1,55 +1,46 @@
 // Overrides specific to the docs
 
 //
+// > Custom Arizona Bootstrap Badge
+//
+.badge-az-custom {
+  padding-top: .5625rem;
+  padding-right: .75rem;
+  padding-bottom: .5625rem;
+  font-size: 1rem;
+  color: $black;
+  background-color: $light;
+
+  &::before {
+    margin-right: .5rem;
+    /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword, declaration-no-important */
+    font-family: az-icons !important;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: top;
+    content: "\e911";
+  }
+}
+
+//
 // > MISC
 //
+// >> Highlighted preformatted text
 .highlight pre {
   padding-bottom: 1em;
 }
-
-
-//
-// > TYPOGRAPHY
-//
-.bd-title,
-.bd-content-title {
-  font-family: $font-family-sans-serif;
-  color: $gray-700;
-}
-
 
 //
 // > NAV
 //
 // >> Navbar
-.bd-navbar {
-  background-color: $white;
-  border-bottom: 1px solid $gray-200;
-
-  .navbar-nav {
-    align-items: stretch;
-    align-self: stretch;
-
-    .nav-item {
-      display: flex;
-    }
-    .nav-link {
-      display: flex;
-      align-items: center;
-      padding: 1.25rem 1.5rem;
-      font-weight: 700;
-      color: $azurite;
-      text-decoration: none;
-
-      &.active,
-      &:active,
-      &:hover {
-        color: $midnight;
-        background-color: $gray-200;
-      }
-    }
-  }
+.bd-navbar::after {
+  background-image: linear-gradient(var(--bs-chili), var(--bs-chili) 95%);
 }
+
 // >> Sidebar
 .bd-toc-item {
   &.active {
@@ -81,6 +72,7 @@
 .bd-sidebar {
   li {
     a {
+      font-weight: initial;
       color: $midnight;
       text-decoration: none;
     }
@@ -109,6 +101,22 @@
   }
 }
 
+.bd-links-span-all.border-top {
+  display: none;
+}
+
+// stylelint-disable selector-no-qualifying-type
+.bd-toc nav a {
+  font-weight: revert;
+
+  &:hover,
+  &.active {
+    color: $midnight;
+    border-left-color: $midnight;
+  }
+}
+// stylelint-enable selector-no-qualifying-type
+
 // >> Off Canvas Navbar example
 
 .navbar-offcanvas {
@@ -130,14 +138,21 @@
   background-color: $river;
 }
 
-.bd-example-row .row > .col,
-.bd-example-row .row > [class^="col-"] {
-  background-color: $gray-200;
-  border-color: $gray-400;
+// >> Background and border colors for grid items
+.bd-example-row [class^="col"],
+.bd-example-cols [class^="col"] > *,
+.bd-example-cssgrid [class*="grid"] > * {
+  background-color: var(--bs-info-bg-subtle);
+  border-color: var(--bs-info-border-subtle);
 }
 
 .bd-example-row-flex-cols .row {
-  background-color: rgba($bloom, .1);
+  background-color: var(--bs-info-bg-subtle);
+}
+
+.bd-example-flex div:not(.vr) {
+  background-color: var(--bs-info-bg-subtle);
+  border-color: var(--bs-info-border-subtle);
 }
 
 .btn-bd-red,
@@ -350,4 +365,9 @@
 
 .pn strong {
   font-weight: 700;
+}
+
+// >> Utility Links
+.bd-example > .nav-utility {
+  margin-bottom: revert;
 }

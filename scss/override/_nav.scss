@@ -1,0 +1,113 @@
+// Overrides for Navs & Tabs
+
+.nav-link {
+  &.active,
+  &:active {
+    color: $nav-tabs-link-active-color;
+    background-color: $nav-tabs-link-bg;
+    @include border-radius($nav-pills-border-radius);
+  }
+
+  &.dropdown-toggle::after {
+    vertical-align: middle;
+  }
+}
+
+.nav-tabs {
+  > *:nth-child(n+2) {
+    margin-left: .5rem;
+  }
+
+  .nav-link {
+    background-color: $nav-tabs-link-bg;
+
+    &.active,
+    &:active {
+      @include border-radius($nav-tabs-border-radius $nav-tabs-border-radius 0 0);
+    }
+
+    &.disabled,
+    &:disabled {
+      background-color: initial;
+    }
+  }
+}
+
+.nav.nav-underline .nav-link {
+  &.active,
+  &:active {
+    background-color: $nav-tabs-link-active-bg;
+    @include border-radius(revert);
+  }
+}
+
+/* stylelint-disable selector-max-type, selector-max-compound-selectors, selector-max-combinators */
+.nav.nav-pills.flex-column > li {
+  margin: -1px 0 0;
+  border: solid 1px $nav-tabs-border-color;
+
+  &:first-child {
+    @include border-top-start-radius($nav-pills-border-radius);
+    @include border-top-end-radius($nav-pills-border-radius);
+  }
+  &:last-child {
+    @include border-bottom-start-radius($nav-pills-border-radius);
+    @include border-bottom-end-radius($nav-pills-border-radius);
+  }
+
+  ul > li {
+    border: 0;
+    a {
+      padding-left: 25px;
+      font-weight: 400;
+    }
+    ul > li {
+      a {
+        padding-left: 35px;
+      }
+      ul > li {
+        a {
+          padding-left: 45px;
+        }
+        ul > li {
+          a {
+            padding-left: 55px;
+          }
+          ul > li {
+            a {
+              padding-left: 65px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .nav-link {
+    @include border-radius(0);
+
+    &:hover,
+    &:focus {
+      background-color: $nav-pills-link-active-bg;
+    }
+  }
+}
+/* stylelint-enable selector-max-type, selector-max-compound-selectors, selector-max-combinators */
+
+.nav.nav-utility {
+  margin: 1rem 0 1.5rem;
+  .nav-item {
+    padding: 0 .6rem;
+  }
+  .nav-link {
+    padding: 0;
+    font-weight: 500;
+    color: $dark-silver;
+    border-bottom: 2px solid transparent;
+
+    &:hover,
+    &:focus {
+      border-bottom-color: $dark-silver;
+    }
+  }
+}
