@@ -12,12 +12,12 @@ Adding the `.navbar-offcanvas` class to your `<nav>` will incorporate an off-can
 
 {{< example >}}
 <div class="d-lg-none d-flex justify-content-end">
-  <button data-toggle="offcanvas" type="button" data-target="#navbarOffcanvasDemo" aria-controls="navbarOffcanvasDemo" class="btn btn-red btn-menu">
-    <span class="material-icons-sharp">search</span>
+  <button data-bs-toggle="offcanvasmenu" type="button" data-bs-target="#navbarOffcanvasDemo" aria-controls="navbarOffcanvasDemo" class="btn btn-red btn-menu">
+    <span class="material-icons-round">search</span>
     <span>Search</span>
   </button>
-  <button data-toggle="offcanvas" type="button" data-target="#navbarOffcanvasDemo" aria-controls="navbarOffcanvasDemo" class="btn btn-red btn-menu">
-    <span class="material-icons-sharp">menu</span>
+  <button data-bs-toggle="offcanvasmenu" type="button" data-bs-target="#navbarOffcanvasDemo" aria-controls="navbarOffcanvasDemo" class="btn btn-red btn-menu">
+    <span class="material-icons-round">menu</span>
     <span>Menu</span>
   </button>
 </div>
@@ -25,11 +25,11 @@ Adding the `.navbar-offcanvas` class to your `<nav>` will incorporate an off-can
   <div class="navbar-offcanvas-header">
     <div class="bg-chili d-flex justify-content-between align-items-center">
       <a href="/" class="btn btn-menu-offcanvas-nav btn-red d-flex flex-column justify-content-center navbar-offcanvas-home">
-        <span class="material-icons-sharp">home</span>
+        <span class="material-icons-round">home</span>
         <span>Home</span>
       </a>
-      <button id="navbarOffcanvasDemoClose" data-toggle="offcanvas" data-target="#navbarOffcanvasDemo" aria-controls="navbarOffcanvasDemo" class="btn btn-menu-offcanvas-nav btn-red d-flex flex-column justify-content-center navbar-offcanvas-home">
-        <span class="material-icons-sharp mx-auto">close</span>
+      <button id="navbarOffcanvasDemoClose" data-bs-toggle="offcanvasmenu" data-bs-target="#navbarOffcanvasDemo" aria-controls="navbarOffcanvasDemo" class="btn btn-menu-offcanvas-nav btn-red d-flex flex-column justify-content-center navbar-offcanvas-home">
+        <span class="material-icons-round mx-auto">close</span>
         <span class="mx-auto">Close</span>
       </button>
     </div>
@@ -37,7 +37,7 @@ Adding the `.navbar-offcanvas` class to your `<nav>` will incorporate an off-can
       <div class="input-group">
         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
-          <button class="btn btn-search" type="submit"><span class="material-icons-sharp">search</span></button>
+          <button class="btn btn-search" type="submit"><span class="material-icons-round">search</span></button>
         </div>
       </div>
     </form>
@@ -50,7 +50,7 @@ Adding the `.navbar-offcanvas` class to your `<nav>` will incorporate an off-can
       <a class="nav-link" href="#">Link</a>
     </li>
     <li class="nav-item nav-item-parent dropdown keep-open">
-      <button class="nav-link dropdown-toggle" id="navbarDropdown4" data-toggle="dropdown" data-display="static" aria-expanded="false">
+      <button class="nav-link dropdown-toggle" id="navbarDropdown4" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
         Admissions
       </button>
       <div class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown4">
@@ -61,7 +61,7 @@ Adding the `.navbar-offcanvas` class to your `<nav>` will incorporate an off-can
       </div>
     </li>
     <li class="nav-item nav-item-parent dropdown keep-open">
-      <button class="nav-link dropdown-toggle" id="navbarDropdown5" data-toggle="dropdown" data-display="static" aria-expanded="false">
+      <button class="nav-link dropdown-toggle" id="navbarDropdown5" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
         Dropdown
       </button>
       <div class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown5">

@@ -1,0 +1,32 @@
+/*
+* > Custom Typography classes
+*/
+
+// >> Text Hyphenation
+.text-hyphen {
+  hyphens: auto;
+}
+
+// >> Lists
+.ul-triangles {
+  overflow: hidden;
+
+  li {
+    position: relative;
+    padding-left: 0;
+    list-style: none;
+
+    &::before {
+      position: absolute;
+      top: 8px;
+      left: -.8em;
+      width: 0;
+      height: 0;
+      content: "";
+      border-top: 4px solid transparent;
+      border-right: 0;
+      border-bottom: 4px solid transparent;
+      border-left: 4px solid $blue;
+    }
+  }
+}
