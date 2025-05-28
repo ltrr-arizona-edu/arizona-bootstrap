@@ -99,8 +99,8 @@ jobs:
     strategy:
       matrix:
         repo:
-          - ltrr-arizona.edu/arizona-bootstrap
-          - ltrr-arizona.edu/digital.arizona.edu
+          - ltrr-arizona-edu/arizona-bootstrap
+          - ltrr-arizona-edu/digital.arizona.edu
     runs-on: ubuntu-latest
     steps:
       - name: Download variables
