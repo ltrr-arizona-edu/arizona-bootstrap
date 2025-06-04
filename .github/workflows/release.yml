@@ -97,7 +97,7 @@ jobs:
     needs: release
     strategy:
       matrix:
-        repo: ${{ fromJSON(vars.AZ_DISPATCH_TO) }})
+        repo: ${{ fromJSON(vars.AZ_DISPATCH_TO) }}
     runs-on: ubuntu-latest
     env:
       RELEASE_SHA: ${{ needs.release.outputs.release_sha }}
