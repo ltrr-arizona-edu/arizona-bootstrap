@@ -94,7 +94,7 @@ jobs:
           prerelease: ${{ github.event.inputs.prerelease }}
 
   dispatch:
-    needs: ${{ from}}
+    needs: release
     strategy:
       matrix:
         repo: ${{ fromJSON(vars.AZ_DISPATCH_TO) }})
