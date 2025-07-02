@@ -1,12 +1,12 @@
 /*!
-  * Arizona Bootstrap v5.0.0-psi9 (https://github.com/az-digital/arizona-bootstrap)
+  * Arizona Bootstrap v5.0.0-alpha2 (https://github.com/az-digital/arizona-bootstrap)
   * Copyright 2025 The Arizona Board of Regents on behalf of The University of Arizona
   * Licensed under MIT (https://github.com/az-digital/arizona-bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global["arizona-bootstrap"] = factory());
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.arizonaBootstrap = factory());
 })(this, (function () { 'use strict';
 
   /**
@@ -7156,8 +7156,30 @@
 
   /**
    * --------------------------------------------------------------------------
+   * Arizona Bootstrap: modal.js
+   * Licensed under MIT (https://github.com/az-digital/arizona-bootstrap/blob/main/LICENSE)
+   * --------------------------------------------------------------------------
+   */
+
+  /**
+   * Temporary fix for blocked aria-hidden attribute on modals.
+   * See https://github.com/az-digital/arizona-bootstrap/issues/1602.
+   */
+  function fixModalAriaHidden() {
+    var modals = document.querySelectorAll('.modal');
+    for (var modal of modals) {
+      modal.addEventListener('hide.bs.modal', () => {
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
+      });
+    }
+  }
+
+  /**
+   * --------------------------------------------------------------------------
    * Arizona Bootstrap: offcanvasmenu.js
-   * Licensed under MIT (https://github.com/az-digital/arizona-bootstrap/blob/master/LICENSE)
+   * Licensed under MIT (https://github.com/az-digital/arizona-bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
 
@@ -7450,8 +7472,15 @@
     Tab,
     Toast,
     Tooltip,
+    fixModalAriaHidden,
     Offcanvasmenu
   };
+
+  /**
+   * Temporary fix for blocked aria-hidden attribute on modals.
+   * See https://github.com/az-digital/arizona-bootstrap/issues/1602.
+   */
+  fixModalAriaHidden();
 
   return index_umd;
 

@@ -1,57 +1,94 @@
 // Photo Gallery custom component
 
-.az-gallery,
-.az-gallery-inner {
+.az-gallery {
+  display: flex;
   width: 100%;
   height: 100%;
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    position: initial;
+    width: unset;
+    opacity: 1;
+  }
+
+  .carousel-control-prev {
+    order: 0;
+    padding-right: .25rem;
+  }
+  .carousel-inner {
+    order: 1;
+  }
+  .carousel-control-next {
+    order: 2;
+    padding-left: .25rem;
+  }
 }
 
-.az-gallery-modal .btn-close {
-  position: absolute;
-  top: 0;
-  right: 5%;
-  z-index: 5000;
-  display: inline-block;
-  padding: .5rem 1rem;
-  font-size: 3rem;
-  color: $white;
-  opacity: 1;
+.az-gallery-slider-full,
+.az-gallery-slider-crop {
+  .carousel-control-prev,
+  .carousel-control-next {
+    color: $blue;
+
+    &:hover {
+      color: $azurite;
+    }
+  }
 }
 
-
-.ua-gallery-item,
-.az-gallery-item {
-  width: 100%;
-  height: 100%;
-}
-.ua-gallery-carousel-image,
-.az-gallery-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  max-width: 70%;
-  max-height: 80%;
-  transform: translate(-50%, -50%);
+.az-gallery-image {
+  min-height: 0;
 }
 
-.ua-gallery-caption,
 .az-gallery-caption {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  z-index: 10;
+  position: static;
   width: 100%;
-  max-width: 850px;
   padding: .75rem;
-  margin: 0;
-  transform: translateX(-50%);
+  margin-right: auto;
+  margin-left: auto;
 }
 
-.ua-gallery-caption p:last-of-type,
-.az-gallery-caption p:last-of-type {
-  margin-bottom: 0;
+.az-gallery-slider-full .az-gallery-caption {
+  color: revert;
+  background-color: unset;
 }
 
-.photo-gallery-grid-img {
-  max-width: 100%;
+.az-gallery-slider-crop .az-gallery-caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.az-gallery-modal {
+  .az-gallery-caption {
+    max-width: 850px;
+  }
+  .btn-close {
+    padding: .5rem 1rem;
+    font-size: 1.5rem;
+    opacity: 1;
+  }
+  .btn-close,
+  .carousel-control-prev,
+  .carousel-control-next {
+    &:hover {
+      opacity: .8;
+    }
+  }
+  .modal-body {
+    padding-top: 0;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .az-gallery {
+    .carousel-control-prev {
+      padding-left: .25rem;
+    }
+    .carousel-control-next {
+      padding-right: .25rem;
+    }
+  }
 }

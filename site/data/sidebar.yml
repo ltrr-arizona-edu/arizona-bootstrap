@@ -14,7 +14,6 @@
     - title: Build tools
     - title: Accessibility
     - title: RFS
-    - title: RTL
     - title: Contribute
 
 - title: Customize
@@ -94,8 +93,8 @@
     - title: Navs & tabs
     - title: Offcanvas
     - title: Pagination
-    - title: Placeholders
     - title: Photo gallery
+    - title: Placeholders
     - title: Popovers
     - title: Progress
     - title: Scrollspy

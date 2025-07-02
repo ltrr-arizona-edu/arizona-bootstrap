@@ -17,6 +17,9 @@ Color and background helpers combine the power of our [`.text-*` utilities]({{< 
 {{< /callout >}}
 
 ### Brand
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Classes</span>
+
 {{< example >}}
 {{< text-bg.inline >}}
 {{- range (index $.Site.Data "colors") }}
@@ -37,6 +40,72 @@ Color and background helpers combine the power of our [`.text-*` utilities]({{< 
 {{< callout info >}}
 {{< partial "callouts/warning-color-assistive-technologies.md" >}}
 {{< /callout >}}
+
+### Grayscale
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Classes</span>
+
+{{< example >}}
+{{< text-bg.inline >}}
+{{- range (index $.Site.Data "grays") }}
+<div class="text-bg-gray-{{ .name }} p-3">.gray-{{ .name | title }} with contrasting color</div>
+{{- end -}}
+{{< /text-bg.inline >}}
+{{< /example >}}
+
+### Transparent
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Classes</span>
+
+{{< example >}}
+<div class="position-relative overflow-hidden">
+  <img class="position-absolute bottom-0" src="{{< docsrefazold `/assets/img/photo-gallery-demo/gallery-img-1.jpg` >}}" alt="University of Arizona Spring Fling">{{< text-bg.inline >}}
+{{- $excluded := slice "leaf" "river" "silver" "mesa" "ash" "sage" -}}
+{{- range $color := where $.Site.Data.colors "name" "not in" $excluded }}
+  <div class="text-bg-transparent-{{ $color.name }} p-3 position-relative">.text-bg-transparent-{{ $color.name }} with contrasting color</div>
+{{- end -}}
+{{< /text-bg.inline >}}
+</div>
+{{< /example >}}
+
+### Gradient
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Classes</span>
+
+{{< example >}}
+<div class="position-relative overflow-hidden">
+  <img class="position-absolute bottom-0" src="{{< docsrefazold `/assets/img/photo-gallery-demo/gallery-img-1.jpg` >}}" alt="University of Arizona Spring Fling">{{< text-bg.inline >}}
+{{- $excluded := slice "leaf" "river" "silver" "mesa" "ash" "sage" -}}
+{{- range $color := where $.Site.Data.colors "name" "not in" $excluded }}
+  <div class="text-bg-gradient-{{ $color.name }} p-3 position-relative">.text-bg-gradient-{{ $color.name }} with contrasting color</div>
+{{- end -}}
+{{< /text-bg.inline >}}
+</div>
+{{< /example >}}
+
+## With headings and links
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Styling</span>
+
+Arizona Bootstrap includes additional styling to ensure that headings and links within elements styled by a `.text-bg-*` class have an accessible and brand-appropriate text color as well.
+
+{{< example >}}
+{{< text-bg.inline >}}
+{{- range (index $.Site.Data "colors") }}
+<div class="text-bg-{{ .name }} p-3"><h3 class="h6 my-0">{{ .name | title }} with contrasting heading color and <a href="#top">link color</a></h3></div>
+{{- end -}}
+{{< /text-bg.inline >}}
+{{< text-bg.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<div class="text-bg-{{ .name }} p-3"><h3 class="h6 my-0">{{ .name | title }} with contrasting heading color and <a href="#top">link color</a></h3></div>
+{{- end -}}
+{{< /text-bg.inline >}}
+{{< text-bg.inline >}}
+{{- range (index $.Site.Data "grays") }}
+<div class="text-bg-gray-{{ .name }} p-3"><h3 class="h6 my-0">Gray {{ .name | title }} with contrasting heading color and <a href="#top">link color</a></h3></div>
+{{- end -}}
+{{< /text-bg.inline >}}
+{{< /example >}}
 
 ## With components
 
