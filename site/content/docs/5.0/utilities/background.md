@@ -19,6 +19,9 @@ Background utilities like `.bg-*` that generated from our original `$theme-color
 {{< /callout >}}
 
 ### Brand
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Classes</span>
+
 {{< example >}}
 {{< colors.inline >}}
 {{- range (index $.Site.Data "colors") }}
@@ -38,15 +41,50 @@ Background utilities like `.bg-*` that generated from our original `$theme-color
 {{< /example >}}
 
 ### Grayscale
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Classes</span>
+
 {{< example >}}
 {{< colors.inline >}}
 {{- range (index $.Site.Data "grays") }}
-<div class="p-3 mb-2 bg-gray-{{ .name }}{{ if .contrast_color }} text-{{ .contrast_color }}{{ else }} text-white{{ end }}">.bg-{{ .name }}</div>
+<div class="p-3 mb-2 bg-gray-{{ .name }}{{ if .contrast_color }} text-{{ .contrast_color }}{{ else }} text-white{{ end }}">.bg-gray-{{ .name }}</div>
 {{- end -}}
 {{< /colors.inline >}}
 {{< /example >}}
 
+### Transparent
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Classes</span>
+
+{{< example >}}
+<div class="position-relative overflow-hidden">
+  <img class="position-absolute bottom-0" src="{{< docsrefazold `/assets/img/photo-gallery-demo/gallery-img-1.jpg` >}}" alt="University of Arizona Spring Fling">{{< colors.inline >}}
+{{- $excluded := slice "leaf" "river" "silver" "mesa" "ash" "sage" -}}
+{{- range $color := where $.Site.Data.colors "name" "not in" $excluded }}
+  <div class="bg-transparent-{{ $color.name }}{{ if $color.contrast_color }} text-{{ $color.contrast_color }}{{ else }} text-white{{ end }} p-3 position-relative">.bg-transparent-{{ $color.name }}</div>
+{{- end -}}
+{{< /colors.inline >}}
+</div>
+{{< /example >}}
+
 ## Background gradient
+
+### Brand Background Colors
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Classes</span>
+
+{{< example >}}
+<div class="position-relative overflow-hidden">
+  <img class="position-absolute bottom-0" src="{{< docsrefazold `/assets/img/photo-gallery-demo/gallery-img-1.jpg` >}}" alt="University of Arizona Spring Fling">{{< colors.inline >}}
+{{- $excluded := slice "leaf" "river" "silver" "mesa" "ash" "sage" -}}
+{{- range $color := where $.Site.Data.colors "name" "not in" $excluded }}
+  <div class="bg-gradient-{{ $color.name }}{{ if $color.contrast_color }} text-{{ $color.contrast_color }}{{ else }} text-white{{ end }} p-3 position-relative">.bg-gradient-{{ $color.name }}</div>
+{{- end -}}
+{{< /colors.inline >}}
+</div>
+{{< /example >}}
+
+### Upstream Bootstrap Gradient Class
 
 By adding a `.bg-gradient` class, a linear gradient is added as background image to the backgrounds. This gradient starts with a semi-transparent white which fades out to the bottom.
 

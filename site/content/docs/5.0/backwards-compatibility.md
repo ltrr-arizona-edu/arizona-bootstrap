@@ -69,6 +69,10 @@ Arizona Bootstrap 2 used the card component to extend the default collapse behav
 
 In Arizona Bootstrap 5, the [accordion component](../components/accordion/) is natively provided by Bootstrap. Site owners who have used accordions in their Arizona Bootstrap 2 sites are encouraged to review relevant HTML and update to the latest implementation.
 
+### Badges
+
+Arizona Bootstrap 5 largely follows [upstream Bootstrap's changes to badges]({{< docsref "/migration#badges" >}}). The `badge-variant()` mixin override from Arizona Bootstrap 2 has been removed since badges will now use [color and background helpers]({{< docsref "/helpers/color-background" >}}) to ensure accessible color combinations. The `.badge-link` class dropped by upstream Bootstrap has been converted to a [custom Arizona Bootstrap class]({{< docsref "/components/badge#badge-links" >}}) that works with badges using the Chili, Midnight, and Light color and background helpers.
+
 
 ## Backwards Compatible Utilities
 
@@ -79,7 +83,16 @@ Arizona Bootstrap 2 contained utility classes that are no longer supported/maint
 
 The following components are deprecated in Arizona Bootstrap 5 and will be removed in the next major version.
 
-### Large Tabs
+### Card Classes
+
+These custom Arizona Bootstrap classes are now deprecated:
+
+ - `.card-borderless`: This class can be replaced with `.border-0`.
+ - `.card-clickable` and `.card-clickable-link`: These classes can be replaced with styling using the standard [Stretched Link helper]({{< docsref "/helpers/stretched-link/" >}}) along with our custom [Hover utilities]({{< docsref "/utilities/hover/" >}}). See the [examples on the Card page]({{< docsref "/components/card/#borderless-and-clickable-cards" >}}).
+ - `.card-landing-grid` and `.landing-$color`: The "landing grid" card style from Arizona Bootstrap 2 has been deprecated and should no longer be used.
+
+
+### Nav Tabs Large
 
 The `.nav-tabs-lg` custom Arizona Bootstrap class is now deprecated.
 
@@ -108,6 +121,10 @@ The legacy `.sans` class has been removed from Arizona Bootstrap 5, which alread
 ## Removed Components
 
 The following components have been removed in Arizona Bootstrap 5.
+
+### Background Wrapper Patterns
+
+The Triangles Fade, Triangle Mosaic, and Catalinas Abstract background wrapper patterns were deprecated in Arizona Bootstrap 2 and have been removed in Arizona Bootstrap 5.
 
 ### Callout Variants
 
