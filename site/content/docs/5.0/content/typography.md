@@ -203,12 +203,12 @@ Use text utilities as needed to change the alignment of your blockquote.
 
 ### Triangles
 
-**(Custom Arizona Bootstrap Class)**
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Class</span>
 
-Add the `.ul-triangles` class to your **unordered list** to replace the default bullets with triangles. Triangle list items function the same as an unordered list.
+Add the `.az-list-triangles` class to your **unordered list** to replace the default bullets with triangles. Triangle list items function the same as an unordered list.
 
 {{< example >}}
-<ul class="ul-triangles">
+<ul class="az-list-triangles">
   <li>Lorem ipsum dolor sit amet</li>
   <li>Consectetur adipiscing elit</li>
   <li>Integer molestie lorem at massa</li>
