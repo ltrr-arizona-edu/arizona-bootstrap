@@ -4,6 +4,9 @@ title: Color Contrast
 description: A brief overview of Arizona Bootstrap's brand colors and color contrast.
 group: getting-started
 toc: true
+extra_js:
+  - src: "docs/5.0/assets/js/toggle-visible.js"
+    async: true
 ---
 
 ## Overview
@@ -16,8 +19,8 @@ All University of Arizona websites should **maintain a minimum of WCAG AA color 
 
 Below we have provided a table that includes all of the Arizona branded colors. Check the "Hide inaccessible color combinations" checkbox to only display the color combinations that meet the minimum of WCAG AA. The accessible color combinations have been determined by use of the [WebAIM Accessibility Tool](http://wave.webaim.org/report#/https://digital.arizona.edu/ua-bootstrap/colors.html).
 
-<label id="hide-inaccessible-label">
-  <input type="checkbox" id="hide-inaccessible"> <strong>Hide inaccessible color combinations.</strong>
+<label id="hide-inaccessible-label" class="mb-2">
+  <input type="checkbox" id="hide-inaccessible"><span role="button"> <strong>Hide inaccessible color combinations</strong></span>
 </label>
 
 {{< contrast.inline >}}
