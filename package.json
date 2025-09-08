@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.28.0",
-    "@babel/core": "^7.28.0",
+    "@babel/core": "^7.28.4",
     "@babel/preset-env": "^7.28.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.6",
@@ -86,7 +86,7 @@
     "eslint-plugin-unicorn": "56.0.1",
     "find-unused-sass-variables": "^6.1.0",
     "globby": "^14.1.0",
-    "hugo-bin": "^0.146.0",
+    "hugo-bin": "^0.147.0",
     "jquery": "3.7.1",
     "linkinator": "6.1.2",
     "nodemon": "^3.1.10",
@@ -94,12 +94,12 @@
     "popper.js": "^1.16.1",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
-    "rollup": "^4.44.2",
+    "rollup": "^4.50.1",
     "sass": "1.78.0",
     "shelljs": "^0.10.0",
-    "stylelint": "^16.23.1",
+    "stylelint": "^16.24.0",
     "stylelint-config-twbs-bootstrap": "^16.1.0",
-    "terser": "^5.43.1",
+    "terser": "^5.44.0",
     "vnu-jar": "24.10.17"
   },
   "files": [
