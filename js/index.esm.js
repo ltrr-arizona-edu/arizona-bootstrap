@@ -18,7 +18,7 @@ export { default as Tab } from '../node_modules/bootstrap/js/src/tab.js'
 export { default as Toast } from '../node_modules/bootstrap/js/src/toast.js'
 export { default as Tooltip } from '../node_modules/bootstrap/js/src/tooltip.js'
 export { default as fixModalAriaHidden } from './src/modal.js'
-export { default as Offcanvasmenu } from './src/offcanvasmenu.js'
+export { default as photoGalleryGridSlideToImage } from './src/photogallery.js'
 
 /**
  * Temporary fix for blocked aria-hidden attribute on modals.
@@ -26,3 +26,10 @@ export { default as Offcanvasmenu } from './src/offcanvasmenu.js'
  */
 /* global fixModalAriaHidden */
 fixModalAriaHidden()
+
+/**
+ * Fix slide-to functionality of photo gallery grid thumbnail buttons.
+ * See https://github.com/az-digital/arizona-bootstrap/issues/1705.
+ */
+/* global photoGalleryGridSlideToImage */
+photoGalleryGridSlideToImage()

@@ -18,7 +18,7 @@ import Tab from '../node_modules/bootstrap/js/src/tab.js'
 import Toast from '../node_modules/bootstrap/js/src/toast.js'
 import Tooltip from '../node_modules/bootstrap/js/src/tooltip.js'
 import fixModalAriaHidden from './src/modal.js'
-import Offcanvasmenu from './src/offcanvasmenu.js'
+import photoGalleryGridSlideToImage from './src/photogallery.js'
 
 export default {
   Alert,
@@ -34,7 +34,7 @@ export default {
   Toast,
   Tooltip,
   fixModalAriaHidden,
-  Offcanvasmenu
+  photoGalleryGridSlideToImage
 }
 
 /**
@@ -42,3 +42,9 @@ export default {
  * See https://github.com/az-digital/arizona-bootstrap/issues/1602.
  */
 fixModalAriaHidden()
+
+/**
+ * Fix slide-to functionality of photo gallery grid thumbnail buttons.
+ * See https://github.com/az-digital/arizona-bootstrap/issues/1705.
+ */
+photoGalleryGridSlideToImage()
