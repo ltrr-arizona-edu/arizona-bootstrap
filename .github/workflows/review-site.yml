@@ -12,6 +12,7 @@ on:
 env:
   AZ_SITE_HOST: ${{ vars.AZ_SITE_HOST }}
   AZ_EPHEMERALIMAGENAME: ${{ vars.AZ_EPHEMERALIMAGENAME }}
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 jobs:
   lint-code:
     name: Check code for linting errors
