@@ -81,7 +81,7 @@
     "glob": "^13.0.6",
     "hugo-bin": "^0.149.2",
     "jquery": "3.7.1",
-    "linkinator": "6.1.4",
+    "linkinator": "7.6.1",
     "nodemon": "^3.1.14",
     "npm-run-all2": "^8.0.4",
     "popper.js": "^1.16.1",
