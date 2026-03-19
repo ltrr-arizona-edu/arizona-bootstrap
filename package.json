@@ -65,7 +65,7 @@
   "devDependencies": {
     "@babel/cli": "^7.28.6",
     "@babel/core": "^7.29.0",
-    "@babel/preset-env": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
     "@rollup/plugin-babel": "^7.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "autoprefixer": "^10.4.27",
@@ -91,7 +91,7 @@
     "sass": "1.78.0",
     "stylelint": "^16.25.0",
     "stylelint-config-twbs-bootstrap": "^16.1.0",
-    "terser": "^5.46.0",
+    "terser": "^5.46.1",
     "vnu-jar": "24.10.17"
   },
   "files": [
