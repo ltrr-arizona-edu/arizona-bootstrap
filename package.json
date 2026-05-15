@@ -91,7 +91,7 @@
     "sass": "1.78.0",
     "stylelint": "^16.25.0",
     "stylelint-config-twbs-bootstrap": "^16.1.0",
-    "terser": "^5.46.2",
+    "terser": "^5.47.1",
     "vnu-jar": "24.10.17"
   },
   "files": [
