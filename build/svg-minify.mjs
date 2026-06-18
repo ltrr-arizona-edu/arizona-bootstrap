@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+// eslint-disable-next-line import/no-unresolved
 import { optimize } from 'svgo'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
