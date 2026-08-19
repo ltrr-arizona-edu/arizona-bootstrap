@@ -18,6 +18,8 @@ sections:
     description: Learn how we build nearly all our components responsively and with base and modifier classes.
   - title: CSS variables
     description: Use Bootstrap's CSS custom properties for fast and forward-looking design and development.
+  - title: JavaScript
+    description: Learn how the package scripts build, lint, transpile, and package JavaScript, and how to add your own modules.
   - title: Optimize
     description: Keep your projects lean, responsive, and maintainable so you can deliver the best experience.
 ---
