@@ -53,6 +53,74 @@ All HTML headings, `<h1>` through `<h6>`, are available.
 <p class="h6">h6. Bootstrap heading</p>
 {{< /example >}}
 
+### Mixed headings
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Class</span>
+
+Add the `.az-headings-mixed` class to a container (such as `<body>` or any wrapping element) to switch that container's `<h1>`-`<h3>` and `.h1`-`.h3` to the serif type stack, leaving `<h4>`-`<h6>` and `.h4`-`.h6` on Proxima Nova.
+
+{{< example >}}
+<div class="az-headings-mixed">
+  <h1>h1. Bootstrap heading</h1>
+  <h2>h2. Bootstrap heading</h2>
+  <h3>h3. Bootstrap heading</h3>
+  <h4>h4. Bootstrap heading</h4>
+  <h5>h5. Bootstrap heading</h5>
+  <h6>h6. Bootstrap heading</h6>
+</div>
+{{< /example >}}
+
+`.h1` through `.h6` classes can also be used in place of the associated HTML element within a container using `.az-headings-mixed`.
+
+{{< example >}}
+<div class="az-headings-mixed">
+  <p class="h1">h1. Bootstrap heading</p>
+  <p class="h2">h2. Bootstrap heading</p>
+  <p class="h3">h3. Bootstrap heading</p>
+  <p class="h4">h4. Bootstrap heading</p>
+  <p class="h5">h5. Bootstrap heading</p>
+  <p class="h6">h6. Bootstrap heading</p>
+</div>
+{{< /example >}}
+
+### Serif headings
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Class</span>
+
+Add the `.az-headings-serif` class to a container (such as `<body>` or any wrapping element) to switch all of that container's `<h1>`-`<h6>` and `.h1`-`.h6` to the serif type stack.
+
+{{< example >}}
+<div class="az-headings-serif">
+  <h1>h1. Bootstrap heading</h1>
+  <h2>h2. Bootstrap heading</h2>
+  <h3>h3. Bootstrap heading</h3>
+  <h4>h4. Bootstrap heading</h4>
+  <h5>h5. Bootstrap heading</h5>
+  <h6>h6. Bootstrap heading</h6>
+</div>
+{{< /example >}}
+
+`.h1` through `.h6` classes can also be used in place of the associated HTML element within a container using `.az-headings-serif`.
+
+{{< example >}}
+<div class="az-headings-serif">
+  <p class="h1">h1. Bootstrap heading</p>
+  <p class="h2">h2. Bootstrap heading</p>
+  <p class="h3">h3. Bootstrap heading</p>
+  <p class="h4">h4. Bootstrap heading</p>
+  <p class="h5">h5. Bootstrap heading</p>
+  <p class="h6">h6. Bootstrap heading</p>
+</div>
+{{< /example >}}
+
+### Switching a single heading's font without a wrapper
+
+Heading font-family reads a shared `--az-heading-font-family` custom property — the same one `.az-headings-serif` sets on a container and `.az-headings-mixed` sets on its `h1`–`h3`/`.h1`–`.h3` descendants above. Setting it directly on one heading works the same way, for a one-off case that doesn't need a wrapping element or a new utility class.
+
+{{< example >}}
+<h2 style="--az-heading-font-family: garamond-premier-pro, Georgia, 'Times New Roman', serif;">h2. Just this heading, in serif</h2>
+{{< /example >}}
+
 ### Customizing headings
 
 Use the included utility classes to recreate the small secondary heading text from Bootstrap 3.
@@ -214,6 +282,85 @@ Add the `.az-list-triangles` class to your **unordered list** to replace the def
   <li>Integer molestie lorem at massa</li>
   <li>Facilisis in pretium nisl aliquet</li>
   <li>Nulla volutpat aliquam velit</li>
+</ul>
+{{< /example >}}
+
+### Focus points
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Class</span>
+
+Add the `.az-list-focus-points` class to your **unordered list** to replace the default bullets with focus points. Focus point list items function the same as an unordered list.
+
+{{< example >}}
+<ul class="az-list-focus-points">
+  <li>Lorem ipsum dolor sit amet</li>
+  <li>Consectetur adipiscing elit</li>
+  <li>Integer molestie lorem at massa</li>
+  <li>This is a longer list item that runs past the width of its container and wraps onto a second line, so you can see that the marker stays put on the first line.</li>
+  <li>Here is another long one. However far the text wraps, every line after the first stays lined up with the one above it instead of sliding back under the marker.</li>
+</ul>
+{{< /example >}}
+
+### Checkmarks
+
+<span class="badge badge-az-custom">Custom Arizona Bootstrap Class</span>
+
+Add the `.az-list-checkmarks` class to your **unordered list** to replace the default bullets with checkmarks. Checkmark list items function the same as an unordered list.
+
+{{< example >}}
+<ul class="az-list-checkmarks">
+  <li>Lorem ipsum dolor sit amet</li>
+  <li>Consectetur adipiscing elit</li>
+  <li>Integer molestie lorem at massa</li>
+  <li>This is a longer list item that runs past the width of its container and wraps onto a second line, so you can see that the marker stays put on the first line.</li>
+  <li>Here is another long one. However far the text wraps, every line after the first stays lined up with the one above it instead of sliding back under the marker.</li>
+</ul>
+{{< /example >}}
+
+### Dark backgrounds
+
+On a dark [`.text-bg-{color}` helper]({{< docsref "helpers/color-background" >}}) the checkmark switches to Sky, because its solid Oasis disc is too dark to read there. The focus point does not change — it keeps its Bloom and Sky on every background.
+
+{{< example >}}
+<div class="text-bg-blue p-4">
+  <ul class="az-list-checkmarks mb-5">
+    <li>Lorem ipsum dolor sit amet</li>
+    <li>Consectetur adipiscing elit</li>
+  </ul>
+  <ul class="az-list-focus-points mb-0">
+    <li>Lorem ipsum dolor sit amet</li>
+    <li>Consectetur adipiscing elit</li>
+  </ul>
+</div>
+{{< /example >}}
+
+### Nested lists
+
+Nested lists inherit the marker and run tighter — 14px between items instead of 24px.
+
+{{< example >}}
+<ul class="az-list-checkmarks">
+  <li>Lorem ipsum dolor sit amet</li>
+  <li>Consectetur adipiscing elit, with a nested list:
+    <ul>
+      <li>Integer molestie lorem at massa</li>
+      <li>Facilisis in pretium nisl aliquet</li>
+      <li>Nulla volutpat aliquam velit</li>
+    </ul>
+  </li>
+  <li>Vestibulum ante ipsum primis</li>
+</ul>
+{{< /example >}}
+
+### Item spacing
+
+The 24px gap between items is part of both styles, so there is nothing to add. If you are writing the markup yourself and want a different gap, override it with the [spacing utilities]({{< docsref "/utilities/spacing" >}}) on the list items.
+
+{{< example >}}
+<ul class="az-list-checkmarks">
+  <li class="mb-1">Lorem ipsum dolor sit amet</li>
+  <li class="mb-1">Consectetur adipiscing elit</li>
+  <li>Integer molestie lorem at massa</li>
 </ul>
 {{< /example >}}
 
