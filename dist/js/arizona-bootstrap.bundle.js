@@ -1,5 +1,5 @@
 /*!
-  * Arizona Bootstrap v5.1.8 (https://github.com/az-digital/arizona-bootstrap)
+  * Arizona Bootstrap v5.1.7 (https://github.com/az-digital/arizona-bootstrap)
   * Copyright 2026 The Arizona Board of Regents on behalf of The University of Arizona
   * Licensed under MIT (https://github.com/az-digital/arizona-bootstrap/blob/main/LICENSE)
   */
@@ -7851,7 +7851,9 @@
     for (var column of allColumns) {
       if (column instanceof HTMLElement) {
         column.style.height = '';
-        column.style.maxHeight = '';
+        column.style.flexGrow = '';
+        column.style.flexShrink = '';
+        column.style.flexBasis = '';
       }
     }
   }
@@ -7912,10 +7914,12 @@
     var syncedHeight = Math.min(tallestVisibleContent, maxAvailableHeight);
     var visibleColumns = isCollapseTransitioning ? getDesktopVisibleNavColumns(modalElement) : getUniqueColumns(activeTargets);
     for (var column of visibleColumns) {
-      // Cap each column's height so flex layout can't stretch the divider past the tallest visible content.
-      // Columns can still scroll normally when content exceeds available vertical space.
+      // Secondary/tertiary columns can be flex-grown by CSS; lock flex sizing
+      // during sync so inline height can consistently control divider length.
+      column.style.flexGrow = '0';
+      column.style.flexShrink = '0';
+      column.style.flexBasis = 'auto';
       column.style.height = "".concat(syncedHeight, "px");
-      column.style.maxHeight = "".concat(syncedHeight, "px");
     }
   }
   function debounce(callback, waitMs) {
@@ -8119,9 +8123,6 @@
       this.mobileCtaNode = null;
       this.primaryNavMenuNode = null;
 
-      // Initialize observer
-      this.mobileMenuObserver = null;
-
       // Initialize state variables
       this.navListenersInitialized = false;
       this.currentNavLevel = 1;
@@ -8212,34 +8213,6 @@
         this.initialMenuParentElementId = this.currentMenuParentElementId;
       }
       this.setupNavListeners();
-      this.setupMobileMenuObserver();
-    }
-
-    /**
-     * Set up an observer for the mobile menu container to add a scroll shadow to
-     * the top of the menu when the user scrolls down.
-     */
-    setupMobileMenuObserver() {
-      var container = document.querySelector('.navbar-az-fullscreen-nav-mobile-menu-container');
-      var menuListTop = document.querySelector('.navbar-az-fullscreen-nav-mobile-menu-list-top');
-      if (!container || !menuListTop) {
-        return;
-      }
-
-      // Disconnect the previous observer if it exists
-      if (this.mobileMenuObserver) {
-        this.mobileMenuObserver.disconnect();
-      }
-      this.mobileMenuObserver = new IntersectionObserver(entries => {
-        for (var entry of entries) {
-          if (entry.target === menuListTop) {
-            container.classList.toggle('show-shadow', !entry.isIntersecting);
-          }
-        }
-      }, {
-        root: container
-      });
-      this.mobileMenuObserver.observe(menuListTop);
     }
 
     /**
@@ -8343,7 +8316,6 @@
       // Update mobile column
       this.mobileCol.replaceChildren(...Array.from(menuNode.childNodes));
       this.toggleFooterDisplay(sourceElementId);
-      this.setupMobileMenuObserver();
     }
 
     /**
@@ -8372,8 +8344,6 @@
         heading.textContent = "".concat(label, " Menu");
         fragment.append(heading);
       }
-      var mobileMenuContainer = document.createElement('div');
-      mobileMenuContainer.className = 'navbar-az-fullscreen-nav-mobile-menu-container';
       var nav;
       switch (navLevel) {
         case 1:
@@ -8407,11 +8377,6 @@
           _panel.remove();
         }
 
-        // Create sentinel element at the top of the nav content
-        var menuListTop = document.createElement('div');
-        menuListTop.className = 'navbar-az-fullscreen-nav-mobile-menu-list-top';
-        navClone.prepend(menuListTop);
-
         // Confirm if any active links are present
         var activeLinkExists = navClone.querySelectorAll(':scope .nav-link.active').length > 0;
 
@@ -8444,8 +8409,7 @@
             button.classList.add('collapsed');
           }
         }
-        mobileMenuContainer.append(navClone);
-        fragment.append(mobileMenuContainer);
+        fragment.append(navClone);
       } else {
         fragment.append(sourceElement.cloneNode(true));
       }
@@ -8469,17 +8433,10 @@
       heading.className = 'navbar-az-fullscreen-nav-mobile-menu-heading';
       heading.textContent = label;
       fragment.append(heading);
-      var mobileMenuContainer = document.createElement('div');
-      mobileMenuContainer.className = 'navbar-az-fullscreen-nav-mobile-menu-container';
       var footerLinks = sourceElement.id === IDS.FOOTER_TOP ? this.topFooterLinks : this.bottomFooterLinks;
       var navId = sourceElement.id === IDS.FOOTER_TOP ? 'az-navbar-az-fullscreen-footer-top-secondary-nav' : 'az-navbar-az-fullscreen-footer-bottom-secondary-nav';
       var column = document.createElement('div');
-      column.className = 'col-lg-6 navbar-az-fullscreen-modal-menu-nav-col navbar-az-fullscreen-modal-menu-nav-col-secondary';
-
-      // Create sentinel element at the top of the nav content
-      var menuListTop = document.createElement('div');
-      menuListTop.className = 'navbar-az-fullscreen-nav-mobile-menu-list-top';
-      column.append(menuListTop);
+      column.className = 'col col-lg-6 navbar-az-fullscreen-modal-menu-nav-col navbar-az-fullscreen-modal-menu-nav-col-secondary';
       var list = document.createElement('ul');
       list.className = 'nav';
       list.setAttribute('id', navId);
@@ -8500,8 +8457,7 @@
         }
       }
       column.append(list);
-      mobileMenuContainer.append(column);
-      fragment.append(mobileMenuContainer);
+      fragment.append(column);
       return fragment;
     }
 

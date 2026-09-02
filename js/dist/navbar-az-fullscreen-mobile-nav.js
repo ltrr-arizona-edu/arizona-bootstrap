@@ -1,5 +1,5 @@
 /*!
-  * Arizona Bootstrap navbar-az-fullscreen-mobile-nav.js v5.1.8 (https://github.com/az-digital/arizona-bootstrap)
+  * Arizona Bootstrap navbar-az-fullscreen-mobile-nav.js v5.1.7 (https://github.com/az-digital/arizona-bootstrap)
   * Copyright 2026 The Arizona Board of Regents on behalf of The University of Arizona
   * Licensed under MIT (https://github.com/az-digital/arizona-bootstrap/blob/main/LICENSE)
   */
@@ -77,9 +77,6 @@
       this.mobileColInitialContent = this.mobileCol.cloneNode(true);
       this.mobileCtaNode = null;
       this.primaryNavMenuNode = null;
-
-      // Initialize observer
-      this.mobileMenuObserver = null;
 
       // Initialize state variables
       this.navListenersInitialized = false;
@@ -175,35 +172,6 @@
         this.initialMenuParentElementId = this.currentMenuParentElementId;
       }
       this.setupNavListeners();
-      this.setupMobileMenuObserver();
-    }
-
-    /**
-     * Set up an observer for the mobile menu container to add a scroll shadow to
-     * the top of the menu when the user scrolls down.
-     */;
-    _proto.setupMobileMenuObserver = function setupMobileMenuObserver() {
-      var container = document.querySelector('.navbar-az-fullscreen-nav-mobile-menu-container');
-      var menuListTop = document.querySelector('.navbar-az-fullscreen-nav-mobile-menu-list-top');
-      if (!container || !menuListTop) {
-        return;
-      }
-
-      // Disconnect the previous observer if it exists
-      if (this.mobileMenuObserver) {
-        this.mobileMenuObserver.disconnect();
-      }
-      this.mobileMenuObserver = new IntersectionObserver(function (entries) {
-        for (var _iterator3 = _createForOfIteratorHelperLoose(entries), _step3; !(_step3 = _iterator3()).done;) {
-          var entry = _step3.value;
-          if (entry.target === menuListTop) {
-            container.classList.toggle('show-shadow', !entry.isIntersecting);
-          }
-        }
-      }, {
-        root: container
-      });
-      this.mobileMenuObserver.observe(menuListTop);
     }
 
     /**
@@ -266,7 +234,7 @@
       // Set up event listeners for footer buttons
       var footerButtons = footer.querySelectorAll(':scope .btn');
       var _loop = function _loop() {
-        var button = _step4.value;
+        var button = _step3.value;
         button.addEventListener('click', function () {
           var targetId = button.getAttribute('data-az-menu-element');
           if (targetId) {
@@ -274,7 +242,7 @@
           }
         });
       };
-      for (var _iterator4 = _createForOfIteratorHelperLoose(footerButtons), _step4; !(_step4 = _iterator4()).done;) {
+      for (var _iterator3 = _createForOfIteratorHelperLoose(footerButtons), _step3; !(_step3 = _iterator3()).done;) {
         _loop();
       }
       return activeLinkFound || found;
@@ -318,7 +286,6 @@
       // Update mobile column
       (_this$mobileCol3 = this.mobileCol).replaceChildren.apply(_this$mobileCol3, Array.from(menuNode.childNodes));
       this.toggleFooterDisplay(sourceElementId);
-      this.setupMobileMenuObserver();
     }
 
     /**
@@ -351,8 +318,6 @@
         heading.textContent = label + " Menu";
         fragment.append(heading);
       }
-      var mobileMenuContainer = document.createElement('div');
-      mobileMenuContainer.className = 'navbar-az-fullscreen-nav-mobile-menu-container';
       var nav;
       switch (navLevel) {
         case 1:
@@ -376,22 +341,17 @@
 
         // Remove secondary panels if they exist
         var secondaryPanels = navClone.querySelectorAll(':scope .navbar-az-fullscreen-modal-menu-primary-submenu');
-        for (var _iterator5 = _createForOfIteratorHelperLoose(secondaryPanels), _step5; !(_step5 = _iterator5()).done;) {
-          var panel = _step5.value;
+        for (var _iterator4 = _createForOfIteratorHelperLoose(secondaryPanels), _step4; !(_step4 = _iterator4()).done;) {
+          var panel = _step4.value;
           panel.remove();
         }
 
         // Remove tertiary panels if they exist
         var tertiaryPanels = navClone.querySelectorAll(':scope .navbar-az-fullscreen-modal-menu-secondary-submenu');
-        for (var _iterator6 = _createForOfIteratorHelperLoose(tertiaryPanels), _step6; !(_step6 = _iterator6()).done;) {
-          var _panel = _step6.value;
+        for (var _iterator5 = _createForOfIteratorHelperLoose(tertiaryPanels), _step5; !(_step5 = _iterator5()).done;) {
+          var _panel = _step5.value;
           _panel.remove();
         }
-
-        // Create sentinel element at the top of the nav content
-        var menuListTop = document.createElement('div');
-        menuListTop.className = 'navbar-az-fullscreen-nav-mobile-menu-list-top';
-        navClone.prepend(menuListTop);
 
         // Confirm if any active links are present
         var activeLinkExists = navClone.querySelectorAll(':scope .nav-link.active').length > 0;
@@ -399,8 +359,8 @@
         // Process all buttons in the cloned nav
         var buttonCounter = 0;
         var buttons = navClone.querySelectorAll(':scope button');
-        for (var _iterator7 = _createForOfIteratorHelperLoose(buttons), _step7; !(_step7 = _iterator7()).done;) {
-          var button = _step7.value;
+        for (var _iterator6 = _createForOfIteratorHelperLoose(buttons), _step6; !(_step6 = _iterator6()).done;) {
+          var button = _step6.value;
           // Store data-bs-target value before removing attributes
           var targetId = button.getAttribute('data-bs-target');
 
@@ -426,8 +386,7 @@
             button.classList.add('collapsed');
           }
         }
-        mobileMenuContainer.append(navClone);
-        fragment.append(mobileMenuContainer);
+        fragment.append(navClone);
       } else {
         fragment.append(sourceElement.cloneNode(true));
       }
@@ -453,24 +412,17 @@
       heading.className = 'navbar-az-fullscreen-nav-mobile-menu-heading';
       heading.textContent = label;
       fragment.append(heading);
-      var mobileMenuContainer = document.createElement('div');
-      mobileMenuContainer.className = 'navbar-az-fullscreen-nav-mobile-menu-container';
       var footerLinks = sourceElement.id === IDS.FOOTER_TOP ? this.topFooterLinks : this.bottomFooterLinks;
       var navId = sourceElement.id === IDS.FOOTER_TOP ? 'az-navbar-az-fullscreen-footer-top-secondary-nav' : 'az-navbar-az-fullscreen-footer-bottom-secondary-nav';
       var column = document.createElement('div');
-      column.className = 'col-lg-6 navbar-az-fullscreen-modal-menu-nav-col navbar-az-fullscreen-modal-menu-nav-col-secondary';
-
-      // Create sentinel element at the top of the nav content
-      var menuListTop = document.createElement('div');
-      menuListTop.className = 'navbar-az-fullscreen-nav-mobile-menu-list-top';
-      column.append(menuListTop);
+      column.className = 'col col-lg-6 navbar-az-fullscreen-modal-menu-nav-col navbar-az-fullscreen-modal-menu-nav-col-secondary';
       var list = document.createElement('ul');
       list.className = 'nav';
       list.setAttribute('id', navId);
       list.setAttribute('aria-label', label);
       if (footerLinks && footerLinks.length > 0) {
-        for (var _iterator8 = _createForOfIteratorHelperLoose(footerLinks), _step8; !(_step8 = _iterator8()).done;) {
-          var link = _step8.value;
+        for (var _iterator7 = _createForOfIteratorHelperLoose(footerLinks), _step7; !(_step7 = _iterator7()).done;) {
+          var link = _step7.value;
           var item = document.createElement('li');
           item.className = 'nav-item';
           var anchor = document.createElement('a');
@@ -485,8 +437,7 @@
         }
       }
       column.append(list);
-      mobileMenuContainer.append(column);
-      fragment.append(mobileMenuContainer);
+      fragment.append(column);
       return fragment;
     }
 
