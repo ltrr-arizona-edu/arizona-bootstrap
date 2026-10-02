@@ -4,6 +4,9 @@ baseURL:                "{{az_site_host}}{{az_site_base_url}}"
 enableInlineShortcodes: true
 
 security:
+  allowContent:
+    - "^text/html$"
+    - "^text/markdown$"
   enableInlineShortcodes: true
   funcs:
     getenv:
@@ -20,6 +23,9 @@ markup:
   tableOfContents:
     startLevel:         2
     endLevel:           6
+
+build:
+  noJSConfigInAssets:   true
 
 buildDrafts:            true
 buildFuture:            true
