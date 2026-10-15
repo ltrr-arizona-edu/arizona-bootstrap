@@ -3,7 +3,9 @@
 **/vendor/
 /_site/
 /js/coverage/
+/playwright-report/
 /site/assets/js/
 /site/static/sw.js
 /site/layouts/partials/
 /site/**/*.md
+/test-results/
